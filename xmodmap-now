@@ -1,0 +1,28 @@
+#!/bin/sh
+
+printf "%s\n" "clear shift"
+printf "%s\n" "clear lock"
+printf "%s\n" "clear control"
+printf "%s\n" "clear mod1"
+printf "%s\n" "clear mod2"
+printf "%s\n" "clear mod3"
+printf "%s\n" "clear mod4"
+printf "%s\n" "clear mod5"
+
+xmodmap -pke
+
+xmodmap | while read a b
+do
+  b=`printf "%s\n" "$b" | sed -e "s/ *([^)]*)\(, \|\)//g"`
+  case "$a" in
+    "shift") [[ -n $b ]] && printf "add shift = %s\n" "$b" ;;
+    "lock") [[ -n $b ]] && printf "add lock = %s\n" "$b" ;;
+    "control") [[ -n $b ]] && printf "add control = %s\n" "$b" ;;
+    "mod1") [[ -n $b ]] && printf "add mod1 = %s\n" "$b" ;;
+    "mod2") [[ -n $b ]] && printf "add mod2 = %s\n" "$b" ;;
+    "mod3") [[ -n $b ]] && printf "add mod3 = %s\n" "$b" ;;
+    "mod4") [[ -n $b ]] && printf "add mod4 = %s\n" "$b" ;;
+    "mod5") [[ -n $b ]] && printf "add mod5 = %s\n" "$b" ;;
+  esac
+done
+
